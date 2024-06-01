@@ -3,8 +3,8 @@
 import express, { Request, Response } from "express";
 import config from "../config";
 import morgan from "morgan";
-// import apiRouter from "./routes";
-// import authRouter from "./routes/auth";
+import apiRouter from "../routes";
+import authRouter from "../routes/auth";
 // import cors from "cors";
 // import { Server as HTTPServer } from "http";
 
@@ -28,9 +28,8 @@ const port = config.app.port;
 app.use(morgan("dev"));
 app.use(express.json({ limit: "6mb" }));
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
-});
+app.use("/api", apiRouter);
+app.use("/auth", authRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
